@@ -3,7 +3,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 import lightning as L
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from timm import create_model
+from models.vision import VisionModel
 
+class ResNet(VisionModel):
+    def __init__(self, num_classes):
+        super(ResNet, self).__init__()
+        
+        self.backbone = create_model(
+            'resnet18', pretrained=True, num_classes=num_classes, 
+            in_chans=1
+        )
+    
 class CNN(L.LightningModule):
     def __init__(self, num_classes, input_shape):
         super(CNN, self).__init__()

@@ -1,0 +1,47 @@
+seed_everything: 42
+trainer:
+  default_root_dir: "./outputs/resnet"
+  # enable_checkpointing: true
+  # gradient_clip_val: 1.
+  max_epochs: 10
+  precision: null # bfloat16 # null # 16-mixed # 
+  # profiler: simple
+  callbacks:
+    - class_path: EarlyStopping
+      init_args:
+        monitor: val_loss
+        min_delta: 0.0
+        patience: 3
+        mode: min
+    - class_path: ModelCheckpoint
+      init_args:
+        monitor: val_loss
+        mode: min
+        save_last: true
+        save_top_k: 1
+    - class_path: TQDMProgressBar
+      init_args:
+        refresh_rate: 1
+        leave: true
+model:
+  class_path: models.cnn.ResNet
+  init_args:
+    num_classes: 4
+data:
+  class_path: datamodule.VLASSLoader
+  init_args:
+    root: './data'
+# optimizer:
+#   class_path: torch.optim.adamw.AdamW
+#   init_args:
+#     lr: 1e-3
+#     weight_decay: 1e-1
+#     betas:
+#       - 0.9
+#       - 0.95
+# lr_scheduler:
+#   class_path: CosineAnnealingLR
+#   init_args:
+#     T_max: 10
+#     T_warmup: 1
+#     eta_min: 1e-6
