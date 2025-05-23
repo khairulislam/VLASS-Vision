@@ -111,25 +111,31 @@ def get_data(data_folder='./data/'):
 
 class DataAugmentations:
     def __init__(
-        self, image_size,
+        self, image_size=64,
         hflip_prob=0.2, 
         vflip_prob=0.2,
         blur_prob=0.1,
         noise_prob=0.1,
-        normalize=True
+        normalize=True,
+        im_channels=1
     ):
         transformations = [
-            transforms.Resize(image_size),
-            transforms.RandomHorizontalFlip(p=hflip_prob),
-            transforms.RandomVerticalFlip(p=vflip_prob),
-            RandomGaussianBlur(p=blur_prob),
-            RandomGaussianNoise(im_dim=image_size, p=noise_prob)
+            transforms.Resize(image_size)
         ]
+        if hflip_prob > 0:
+            transformations.append(transforms.RandomHorizontalFlip(hflip_prob))
+        if vflip_prob > 0:
+            transformations.append(transforms.RandomVerticalFlip(vflip_prob))
+        if blur_prob > 0:
+            transformations.append(RandomGaussianBlur(p=blur_prob, im_channels=im_channels, im_dim=image_size))
+        if noise_prob > 0:
+            transformations.append(RandomGaussianNoise(p=noise_prob, im_channels=im_channels, im_dim=image_size))
+        
         if normalize:
             # Normalize the image
             transformations.append(transforms.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
+                mean=0.087235734,
+                std=0.14558059
             ))
         self.transformations = transforms.Compose(transformations)
         
@@ -140,18 +146,18 @@ class DataAugmentations:
 class RandomGaussianBlur(transforms.RandomApply):
     """Randomly apply Gaussian blur to the image."""
 
-    def __init__(self, *, p: float = 0.5):
+    def __init__(self, *, p: float = 0.5, im_channels=3, im_dim=144):
         keep_p = 1 - p
-        transform = GaussianBlur()
+        transform = GaussianBlur(im_ch=im_channels, im_dim=im_dim)
         super().__init__([transform], p=keep_p)
 
 
 class RandomGaussianNoise(transforms.RandomApply):
     """Randomly apply Gaussian noise to the image."""
 
-    def __init__(self, *, im_dim=144, p: float = 0.5):
+    def __init__(self, *, im_dim=144, p: float = 0.5, im_channels=3):
         keep_p = 1 - p
-        transform = GaussianNoise(im_dim=im_dim)
+        transform = GaussianNoise(im_dim=im_dim, im_ch=im_channels)
         super().__init__([transform], p=keep_p)
         
 class GaussianNoise:

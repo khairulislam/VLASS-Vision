@@ -1,5 +1,5 @@
 import os, torch
-from dataset import VLASS
+from dataset import VLASS, DataAugmentations
 import lightning as L
 
 def running_on_windows():
@@ -9,7 +9,7 @@ class VLASSLoader(L.LightningDataModule):
     def __init__(
         self, root: str, batch_size: int = 64,
         num_workers: int = 5, pin_memory: bool = True,
-        transform = None, test_ratio: float = 0.2
+        transform: DataAugmentations = None, test_ratio: float = 0.2
     ):
         super().__init__()
         self.save_hyperparameters()

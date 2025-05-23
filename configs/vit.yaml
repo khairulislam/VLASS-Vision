@@ -35,6 +35,11 @@ data:
   class_path: datamodule.VLASSLoader
   init_args:
     root: './data'
+    transform:
+      class_path: dataset.DataAugmentations
+      init_args:
+        normalize: false
+        blur_prob: 0
 # optimizer:
 #   class_path: torch.optim.adamw.AdamW
 #   init_args:
