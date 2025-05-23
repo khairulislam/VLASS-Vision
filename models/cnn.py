@@ -7,13 +7,17 @@ from timm import create_model
 from models.vision import VisionModel
 
 class ResNet(VisionModel):
-    def __init__(self, num_classes):
+    def __init__(self, model_name, freeze=False):
         super(ResNet, self).__init__()
         
         self.backbone = create_model(
-            'resnet18', pretrained=True, num_classes=num_classes, 
-            in_chans=1
+            model_name, pretrained=True, num_classes=self.num_classes, 
+            in_chans=self.in_channels
         )
+        if freeze:
+            for name, param in self.backbone.named_parameters():
+                if not name.startswith("fc."):
+                    param.requires_grad = False
     
 class CNN(L.LightningModule):
     def __init__(self, num_classes, input_shape):

@@ -1,6 +1,6 @@
 seed_everything: 42
 trainer:
-  default_root_dir: "./outputs/resnet"
+  default_root_dir: "./outputs/vgg"
   # enable_checkpointing: true
   # gradient_clip_val: 1.
   max_epochs: 10
@@ -26,7 +26,7 @@ trainer:
 model:
   class_path: models.cnn.ResNet
   init_args:
-    model_name: resnet18
+    model_name: vgg16_bn
     freeze: false
 data:
   class_path: datamodule.VLASSLoader

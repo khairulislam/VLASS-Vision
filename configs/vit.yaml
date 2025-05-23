@@ -26,7 +26,11 @@ trainer:
 model:
   class_path: models.vit.ViT
   init_args:
-    num_classes: 4
+    model_name: vit_tiny_patch16_224
+    freeze: false
+    model_kwargs:
+      img_size: 64
+      patch_size: 8
 data:
   class_path: datamodule.VLASSLoader
   init_args:

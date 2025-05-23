@@ -1,8 +1,5 @@
-import os
-import timm, torch
-import torch.nn as nn
-from datasets import VLASS
-from torch.utils.data import random_split 
+import os, torch
+from dataset import VLASS
 import lightning as L
 
 def running_on_windows():
@@ -24,15 +21,6 @@ class VLASSLoader(L.LightningDataModule):
             self.num_workers = num_workers
 
     def setup(self, stage: str):
-        # dataset = VLASS(
-        #     root = self.hparams.root,
-        #     transform = self.transform
-        # )
-        
-        # test_size = int(self.hparams.test_ratio * len(dataset))
-        # train_size = len(dataset) - test_size
-        # train_dataset, val_dataset = random_split(dataset, [train_size, test_size])
-
         self.train_dataset = VLASS(
             root = self.hparams.root, split='train', 
             transform = self.transform

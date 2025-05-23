@@ -5,8 +5,11 @@ import lightning as L
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
 class VisionModel(L.LightningModule):
-    def __init__(self, num_classes):
+    def __init__(self):
         super(VisionModel, self).__init__()
+        
+        self.num_classes = 4
+        self.in_channels = 1
         self.save_hyperparameters()
         # input_shape is expected as (height, width, channels) from Keras, 
         # but PyTorch expects (channels, height, width) for Conv2d.
@@ -33,6 +36,7 @@ class VisionModel(L.LightningModule):
         return self.shared_step(batch, split='val')
     
     def configure_optimizers(self):
+        # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, self.parameters()), lr=1e-3)
         optimizer = torch.optim.Adam(self.parameters(), lr=1e-4)
 
         scheduler = CosineAnnealingLR(

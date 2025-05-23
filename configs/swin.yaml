@@ -1,6 +1,6 @@
 seed_everything: 42
 trainer:
-  default_root_dir: "./outputs/resnet"
+  default_root_dir: "./outputs/swin"
   # enable_checkpointing: true
   # gradient_clip_val: 1.
   max_epochs: 10
@@ -21,13 +21,17 @@ trainer:
         save_top_k: 1
     - class_path: TQDMProgressBar
       init_args:
-        refresh_rate: 25
+        refresh_rate: 1
         leave: true
 model:
-  class_path: models.cnn.ResNet
+  class_path: models.vit.ViT
   init_args:
-    model_name: resnet18
+    model_name: swinv2_small_window8_256
     freeze: false
+    dropout: 0.2
+    model_kwargs:
+      img_size: 64
+      patch_size: 8
 data:
   class_path: datamodule.VLASSLoader
   init_args:
