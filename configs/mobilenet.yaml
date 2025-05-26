@@ -1,6 +1,6 @@
 seed_everything: 42
 trainer:
-  default_root_dir: "./outputs/vit"
+  default_root_dir: "./outputs/mobilenet"
   # enable_checkpointing: true
   # gradient_clip_val: 1.
   max_epochs: 10
@@ -21,16 +21,13 @@ trainer:
         save_top_k: 1
     - class_path: TQDMProgressBar
       init_args:
-        refresh_rate: 1
+        refresh_rate: 25
         leave: true
 model:
-  class_path: models.vit.ViT
+  class_path: models.cnn.ResNet
   init_args:
-    model_name: vit_base_patch16_224
+    model_name: mobilenetv3_large_100.ra_in1k # mobilenetv2_100.ra_in1k
     freeze: false
-    model_kwargs:
-      img_size: 64
-      patch_size: 8
 data:
   class_path: datamodule.VLASSLoader
   init_args:

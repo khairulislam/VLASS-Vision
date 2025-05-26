@@ -8,7 +8,7 @@ def running_on_windows():
 class VLASSLoader(L.LightningDataModule):
     def __init__(
         self, root: str, batch_size: int = 64,
-        num_workers: int = 5, pin_memory: bool = True,
+        num_workers: int = 0, pin_memory: bool = True,
         transform: DataAugmentations = None, test_ratio: float = 0.2
     ):
         super().__init__()

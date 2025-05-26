@@ -4,11 +4,12 @@ from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classifi
 
 def test_model(model, dataloader):
     model.eval()
+    device = model.device
     with torch.no_grad():
         y_trues, y_preds = [], []
         
         for inputs, labels in tqdm(dataloader):
-            outputs = model(inputs)
+            outputs = model(inputs.to(device))
             predicted = torch.argmax(outputs, 1)
             
             y_trues.extend(labels.detach().cpu().numpy())

@@ -12,3 +12,4 @@ Vision model for VLASS images
 | ViT-Tiny | 84.0 | 73.3 | True | True | 5.4M | No |
 | ViT-Tiny | 91.5 | 86.9 | True | False | 5.4M | No |
 | ViT-Tiny | 92.5 | 88.3 | True | False | 5.4M | Yes |
+| Swin | | |  | False | 70.1M | No |

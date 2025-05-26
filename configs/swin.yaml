@@ -26,7 +26,7 @@ trainer:
 model:
   class_path: models.vit.ViT
   init_args:
-    model_name: swinv2_small_window8_256
+    model_name: swin_s3_base_224
     freeze: false
     dropout: 0.2
     model_kwargs:
@@ -36,6 +36,11 @@ data:
   class_path: datamodule.VLASSLoader
   init_args:
     root: './data'
+    transform:
+      class_path: dataset.DataAugmentations
+      init_args:
+        normalize: false
+        blur_prob: 0
 # optimizer:
 #   class_path: torch.optim.adamw.AdamW
 #   init_args:

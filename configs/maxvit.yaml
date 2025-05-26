@@ -1,6 +1,6 @@
 seed_everything: 42
 trainer:
-  default_root_dir: "./outputs/vit"
+  default_root_dir: "./outputs/maxvit"
   # enable_checkpointing: true
   # gradient_clip_val: 1.
   max_epochs: 10
@@ -26,7 +26,7 @@ trainer:
 model:
   class_path: models.vit.ViT
   init_args:
-    model_name: vit_base_patch16_224
+    model_name: maxvit_base_tf_512.in21k_ft_in1k
     freeze: false
     model_kwargs:
       img_size: 64
