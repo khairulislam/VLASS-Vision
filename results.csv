@@ -1,0 +1,8 @@
+model,parameters,accuracy,f1_score
+CNN,0.867,83.9,75.5
+MobileNet,2.2,88.6,81.9
+ResNet18,11.2,90.2,84.5
+EfficientNet,10.7,83.4,74.9
+ViT-Tiny,5.4,91.5,86.3
+ViT-Base,85.2,92.5,88.3
+SwinViT,70.1,89.6,83.5

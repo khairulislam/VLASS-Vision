@@ -112,6 +112,7 @@ def get_data(data_folder='./data/'):
 class DataAugmentations:
     def __init__(
         self, image_size=64,
+        center_crop=False,
         hflip_prob=0.2, 
         vflip_prob=0.2,
         blur_prob=0.1,
@@ -120,7 +121,7 @@ class DataAugmentations:
         im_channels=1
     ):
         transformations = [
-            transforms.Resize(image_size)
+            transforms.CenterCrop(image_size) if center_crop else transforms.Resize(image_size)
         ]
         if hflip_prob > 0:
             transformations.append(transforms.RandomHorizontalFlip(hflip_prob))

@@ -1,6 +1,6 @@
 seed_everything: 42
 trainer:
-  default_root_dir: "./outputs/vit_small"
+  default_root_dir: "./outputs/smaller_vit"
   # enable_checkpointing: true
   # gradient_clip_val: 1.
   max_epochs: 10
@@ -26,10 +26,10 @@ trainer:
 model:
   class_path: models.vit.ViT
   init_args:
-    model_name: vit_small_patch16_224 # vit_base_patch16_224
+    model_name: vit_tiny_patch16_224
     freeze: false
     model_kwargs:
-      img_size: 64
+      img_size: 32
       patch_size: 8
 data:
   class_path: datamodule.VLASSLoader
@@ -40,6 +40,8 @@ data:
       init_args:
         normalize: false
         blur_prob: 0
+        image_size: 32
+        center_crop: true
 # optimizer:
 #   class_path: torch.optim.adamw.AdamW
 #   init_args:

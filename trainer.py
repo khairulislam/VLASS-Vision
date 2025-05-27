@@ -7,7 +7,7 @@ from lightning.pytorch.cli import (
 )
 from torch.optim import Optimizer
 from lightning.pytorch.cli import SaveConfigCallback
-import os, datetime
+import os, datetime, timm
 from lightning.pytorch.loggers import WandbLogger
 from lightning import Trainer
 
