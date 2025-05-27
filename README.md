@@ -24,6 +24,14 @@ Vision model for VLASS images
 
 <img src="./AAS-VLASS-June-2023/output_files/output_11_0.png" width="80%"/>
 
+## Reproduce
+
+To train a model use the `trainer.py` script with appropriate configuration. For example, the following runs the vision transformer model. Use the `srun` before python command if running in a slurm environment with distributed training. You can change the yaml file for different configurations or create a new one and update the command bellow.
+
+```bash
+python trainer.py fit --config configs/vit.yaml
+```
+
 ## Results
 
 ### Accuracy

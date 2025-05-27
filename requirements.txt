@@ -1,0 +1,10 @@
+lightning
+matplotlib
+numpy
+pandas
+skimage
+sklearn
+timm
+torch
+torchvision
+tqdm
